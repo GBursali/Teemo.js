@@ -3,13 +3,12 @@ import { SlashCommandBuilder } from "discord.js";
 import infos from "../config/outsourceinformations.json" assert { type: "json" };
 
 export const data = new SlashCommandBuilder()
-    .setName("cat")
-    .setDescription("Kedi fotisi!");
-export const permissions = [];
+	.setName("cat")
+	.setDescription("Sends a cat photo to the channel");
 export function execute(interaction) {
-    axios.get(infos.catURL).then((response) => {
-        interaction.channel.send(response.data.file, {
-            files: [response.data.file],
-        });
-    });
+	axios.get(infos.catURL).then(response => {
+		interaction.channel.send(response.data.file, {
+			files: [response.data.file],
+		});
+	});
 }
