@@ -29,4 +29,4 @@ client.on("interactionCreate", interaction => {
 	command.execute(interaction);
 });
 
-client.login(settings.TOKEN);
+client.login(TOKEN);

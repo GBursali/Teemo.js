@@ -1,7 +1,11 @@
 import { readFile } from "fs/promises";
 import { readdirSync } from "fs";
 import { Collection } from "discord.js";
-import config from "../config/config.json" assert { type: "json" };
+// import settings from "../config/config.json" assert { type: "json" };
+import * as env from "dotenv";
+// import config IDs
+env.config();
+const config = process.env;
 import axios from "axios";
 
 export async function importJSON(dir) {

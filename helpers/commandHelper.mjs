@@ -1,5 +1,9 @@
 import { __ } from "../config/strings.mjs";
-import settings from "../config/config.json" assert { type: "json" };
+// import settings from "../config/config.json" assert { type: "json" };
+import * as env from "dotenv";
+// import config IDs
+env.config();
+const settings = process.env;
 import axios from "axios";
 export function getInteractionCommand(commands, interaction) {
 	return commands.find(cmd => cmd.data.name == interaction.commandName);
