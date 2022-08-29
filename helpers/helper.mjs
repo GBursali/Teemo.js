@@ -1,0 +1,70 @@
+import { readFile } from "fs/promises";
+import { readdirSync } from "fs";
+import { Collection } from "discord.js";
+import config from "../config/config.json" assert { type: "json" };
+import axios from "axios";
+// const settings = await importJSON("../config/config.json");
+
+export async function importJSON(dir) {
+	return JSON.parse(await readFile(new URL(dir, import.meta.url)));
+}
+
+export function assert(state, errormsg) {
+	if (!state) throw errormsg;
+}
+
+export function handleError(err, message) {
+	if (err == "") return;
+	console.log(err);
+	("");
+	if (typeof err == "string") message.reply(err);
+}
+
+export async function importCommands(dir) {
+	var files = getAllFiles(dir);
+	var commands = [];
+	for (const file of files) {
+		let command = await import(`.${file}`);
+		commands.push(command);
+	}
+	return commands;
+}
+function getAllFiles(dir) {
+	var list = [];
+	for (const file of readdirSync(dir, { withFileTypes: true })) {
+		const filename = `${dir}/${file.name}`;
+		if (file.isDirectory()) list.push(getAllFiles(filename));
+		else list.push(filename);
+	}
+	return list;
+}
+export function addThousandSeperators(value) {
+	return value.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+}
+
+export function hasUserAbleToProcessCommand(command, guildMember) {
+	for (const permission in command.permissions) {
+		if (!guildMember.roles.cache.has(permission)) {
+			message.reply(__("PERMISSION_ERROR"));
+			return false;
+		}
+	}
+	return true;
+}
+
+function sendData(data) {
+	const options = {
+		headers: {
+			"X-Custom-Header": `Authorization: Bot ${config.token}`,
+		},
+	};
+	axios
+		.post(
+			`https://discord.com/api/v8/applications/${config.clientId}/commands`,
+			data,
+			options
+		)
+		.catch(error => {
+			console.log(error);
+		});
+}
