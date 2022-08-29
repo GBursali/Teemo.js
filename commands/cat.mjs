@@ -6,9 +6,8 @@ export const data = new SlashCommandBuilder()
 	.setName("cat")
 	.setDescription("Sends a cat photo to the channel");
 export function execute(interaction) {
+	interaction.deferReply();
 	axios.get(infos.catURL).then(response => {
-		interaction.channel.send(response.data.file, {
-			files: [response.data.file],
-		});
+		interaction.editReply(response.data.file);
 	});
 }
