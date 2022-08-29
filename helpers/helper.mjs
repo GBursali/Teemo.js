@@ -3,7 +3,6 @@ import { readdirSync } from "fs";
 import { Collection } from "discord.js";
 import config from "../config/config.json" assert { type: "json" };
 import axios from "axios";
-// const settings = await importJSON("../config/config.json");
 
 export async function importJSON(dir) {
 	return JSON.parse(await readFile(new URL(dir, import.meta.url)));
@@ -55,12 +54,12 @@ export function hasUserAbleToProcessCommand(command, guildMember) {
 function sendData(data) {
 	const options = {
 		headers: {
-			"X-Custom-Header": `Authorization: Bot ${config.token}`,
+			"X-Custom-Header": `Authorization: Bot ${config.TOKEN}`,
 		},
 	};
 	axios
 		.post(
-			`https://discord.com/api/v8/applications/${config.clientId}/commands`,
+			`https://discord.com/api/v8/applications/${config.CLIENT_ID}/commands`,
 			data,
 			options
 		)
