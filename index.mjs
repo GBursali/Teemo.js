@@ -5,7 +5,7 @@ import {
 	registerSlashCommands,
 } from "./helpers/commandHelper.mjs";
 import { __ } from "./config/strings.mjs";
-import settings from "./config/config.json" assert { type: "json" };
+// import settings from "./config/config.json" assert { type: "json" };
 import { importCommands } from "./helpers/helper.mjs";
 /*Imports Done*/
 import * as env from "dotenv";
