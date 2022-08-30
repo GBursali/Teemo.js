@@ -69,6 +69,6 @@ export function execute(interaction) {
 		outputBuilder +=
 			"Try some different keywords if these are not those which you are looking for.";
 
-		interaction.editReply(outputBody);
+		interaction.editReply(outputBuilder);
 	});
 }
