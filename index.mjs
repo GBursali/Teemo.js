@@ -1,18 +1,17 @@
 /*Imports*/
-import { Client, GatewayIntentBits, REST, Routes } from "discord.js";
+import { Client, Events, GatewayIntentBits, Partials } from "discord.js";
 import {
 	getInteractionCommand,
 	registerSlashCommands,
 } from "./helpers/commandHelper.mjs";
 import { __ } from "./config/strings.mjs";
-// import settings from "./config/config.json" assert { type: "json" };
-import { importCommands } from "./helpers/helper.mjs";
-/*Imports Done*/
-import * as env from "dotenv";
-// import config IDs
-env.config();
-const TOKEN = process.env.TOKEN;
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+import settings from "./config/config.json" assert { type: "json" };
+import { importCommands, importEvents } from "./helpers/helper.mjs";
+import { execute } from "./events/reaction.mjs";
+const client = new Client({
+	intents: [GatewayIntentBits.Guilds],
+	partials: [Partials.Message, Partials.Channel, Partials.Reaction],
+});
 //Register Commands
 let commands = await importCommands("./commands");
 registerSlashCommands(commands);
@@ -28,5 +27,9 @@ client.on("interactionCreate", interaction => {
 	if (command == undefined) throw __("UNKNOWN_COMMAND");
 	command.execute(interaction);
 });
-
-client.login(TOKEN);
+client.on(Events.MessageReactionAdd, async function (reaction, user) {
+	console.log("boo");
+	execute(reaction, user);
+});
+console.log("ready to login");
+client.login(settings.TOKEN);

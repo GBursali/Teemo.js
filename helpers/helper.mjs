@@ -1,6 +1,5 @@
 import { readFile } from "fs/promises";
 import { readdirSync } from "fs";
-import { Collection } from "discord.js";
 // import settings from "../config/config.json" assert { type: "json" };
 import * as env from "dotenv";
 // import config IDs
@@ -41,6 +40,15 @@ function getAllFiles(dir) {
 	}
 	return list;
 }
+
+export async function importEvents(client, dir) {
+	var files = getAllFiles(dir);
+	for (const file of files) {
+		let event = await import(`.${file}`);
+		client.on(event.name, (...args) => event.execute(...args));
+	}
+}
+
 export function addThousandSeperators(value) {
 	return value.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 }
