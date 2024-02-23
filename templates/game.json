@@ -1,0 +1,31 @@
+{
+	"type": "category",
+	"name": "{Category Name}",
+	"role": "{Category Name}",
+	"channels": [
+		{
+			"type": "text",
+			"name": "genel"
+		},
+		{
+			"type": "text",
+			"name": "lfg-lfm"
+		},
+		{
+			"type": "text",
+			"name": "sosyal-media"
+		},
+		{
+			"type": "text",
+			"name": "QA"
+		},
+		{
+			"type": "voice",
+			"name": "parti-1"
+		},
+		{
+			"type": "voice",
+			"name": "parti-2"
+		}
+	]
+}
