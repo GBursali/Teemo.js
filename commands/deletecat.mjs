@@ -3,7 +3,7 @@ import { SlashCommandBuilder, PermissionFlagsBits } from "discord.js";
 export const data = new SlashCommandBuilder()
 	.setName("deletecat")
 	.setDescription("Deletes the whole category with the channels inside.")
-	.setDefaultMemberPermissions(PermissionFlagsBits.ManageChannels);
+	.setDefaultMemberPermissions(PermissionFlagsBits.Administrator);
 export function execute(interaction) {
 	interaction.deferReply();
 	interaction.channel.delete().then(() => {
