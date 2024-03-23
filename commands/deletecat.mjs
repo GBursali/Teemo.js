@@ -6,13 +6,14 @@ export const data = new SlashCommandBuilder()
 	.setDefaultMemberPermissions(PermissionFlagsBits.Administrator);
 export function execute(interaction) {
 	interaction.deferReply();
+	let parent = interaction.channel.parent;
 	interaction.channel.delete().then(() => {
-		for (const channel of message.channel.parent.children) {
+		for (const channel of parent.children.cache) {
 			//channel[0] is the snowflake id. 1st index is the object itself.
 			channel[1].delete();
 		}
 	});
 	setTimeout(() => {
-		message.channel.parent.delete();
+		parent.delete();
 	}, 5000);
 }

@@ -1,5 +1,5 @@
 {
 	"binanceURL": "https://api2.binance.com/api/v3/ticker/24hr",
-	"catURL": "https://aws.random.cat/meow",
+	"duckURL": "https://random-d.uk/api/v2/random",
 	"translateURL": "https://libretranslate.com/translate"
 }
